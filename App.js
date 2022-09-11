@@ -11,6 +11,7 @@
   ActivityIndicator, 
   Button,
   FlatList, 
+  SafeAreaView,
   StyleSheet,
   Text, 
   View 
@@ -20,6 +21,7 @@
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [shouldShow, setShouldShow] = useState(true);
+  const [justifyContent, setJustifyContent] = useState("flex-start");
 
   const getMovies = async () => {
     try {
@@ -38,17 +40,12 @@
   }, []);
 
   return (
-    <View style={{ flex: 1, padding: 24 }}>
-      <Text style={styles.title}>
-        The title and onPress handler are required. It is recommended to set accessibilityLabel to help make your app usable by everyone.
-      </Text>
-      <Button
-        title="Press me"
-        onPress={() => setShouldShow(!shouldShow)}
-      />
+    <SafeAreaView style={{flex: 1}}>
+    <View style={styles.container} selectedValue={justifyContent} setSelectedValue={setJustifyContent}>
 
       {isLoading ? <ActivityIndicator/> : !shouldShow ? null : (
-        <FlatList
+        <FlatList 
+          style={styles.title}
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
@@ -56,19 +53,38 @@
           )}
         />
       )}
+
+      <Button
+        style={styles.button}
+        title="Press me"
+        onPress={() => setShouldShow(!shouldShow)}
+      />
+
     </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    // justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 16,
+    justifyContent: 'space-around',
+    margin: 10,
   },
   title: {
-    textAlign: 'center',
-    marginVertical: 8,
+    // textAlign: 'center',
+    // marginHorizontal: 100,
+    marginVertical: 250,
+    paddingBottom: 0,
+    marginBottom: 0
+  },
+  button: {
+    // textAlign: 'center',
+    // marginHorizontal: 100,
+    alignItems: 'center',
+    paddingVertical: 0,
   },
   fixToText: {
     flexDirection: 'row',
