@@ -56,7 +56,7 @@
 
       <Button
         style={styles.button}
-        title="Press me"
+        title="Hide/Show Movies"
         onPress={() => setShouldShow(!shouldShow)}
       />
 
